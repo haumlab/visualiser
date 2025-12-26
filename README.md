@@ -42,7 +42,7 @@ A sophisticated web-based tool that brings sorting algorithms to life through hi
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/sound-algorithims.git
+   git clone https://github.com/haumlab/sound-algorithims.git
    cd sound-algorithims
    ```
 
