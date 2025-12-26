@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audio Sorting Visualizer</title>
+    <script type="module" crossorigin src="/assets/index-Ca-MsUSp.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-82dNhESn.css">
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>Audio Sorting</h1>
+        <p>Visualizing algorithms through sound and motion.</p>
+      </header>
+      
+      <main>
+        <div id="visualizer-container">
+          <canvas id="visualizer"></canvas>
+        </div>
+        
+        <div class="controls">
+          <div class="control-group">
+            <label for="algorithm">Algorithm</label>
+            <select id="algorithm">
+              <option value="bubble">Bubble Sort</option>
+              <option value="selection">Selection Sort</option>
+              <option value="insertion">Insertion Sort</option>
+              <option value="quick">Quick Sort</option>
+              <option value="merge">Merge Sort</option>
+            </select>
+          </div>
+          
+          <div class="control-group">
+            <label for="size">Array Size</label>
+            <input type="range" id="size" min="10" max="200" value="50">
+          </div>
+          
+          <div class="control-group">
+            <label for="speed">Speed</label>
+            <input type="range" id="speed" min="1" max="100" value="50">
+          </div>
+          
+          <div class="actions">
+            <button id="start">Start</button>
+            <button id="reset">Reset</button>
+          </div>
+        </div>
+      </main>
+
+      <footer>
+        <p>Inspired by <a href="https://nohello.net/en/" target="_blank">nohello.net</a></p>
+      </footer>
+    </div>
+  </body>
+</html>

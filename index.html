@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audio Sorting Visualizer</title>
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>Audio Sorting</h1>
+        <p>The art of algorithms, visualized through sound.</p>
+      </header>
+      
+      <main>
+        <div id="visualizers-grid" class="single-mode">
+          <div class="visualizer-card" id="card-1">
+            <div class="card-header">
+              <span class="algo-name">Algorithm 1</span>
+              <span class="algo-time">0.00s</span>
+            </div>
+            <div class="visualizer-container">
+              <canvas id="visualizer-1"></canvas>
+            </div>
+          </div>
+          <div class="visualizer-card" id="card-2" style="display: none;">
+            <div class="card-header">
+              <span class="algo-name">Algorithm 2</span>
+              <span class="algo-time">0.00s</span>
+            </div>
+            <div class="visualizer-container">
+              <canvas id="visualizer-2"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        <div class="controls-panel">
+          <div class="control-row">
+            <div class="control-group">
+              <label>Mode</label>
+              <div class="mode-toggle">
+                <button id="mode-single" class="active">Single</button>
+                <button id="mode-vs">VS Mode</button>
+              </div>
+            </div>
+            
+            <div class="control-group">
+              <label for="algorithm">Algorithm 1</label>
+              <select id="algorithm">
+                <option value="bubble">Bubble Sort</option>
+                <option value="selection">Selection Sort</option>
+                <option value="insertion">Insertion Sort</option>
+                <option value="quick">Quick Sort</option>
+                <option value="merge">Merge Sort</option>
+                <option value="heap">Heap Sort</option>
+                <option value="shell">Shell Sort</option>
+                <option value="cocktail">Cocktail Sort</option>
+                <option value="gnome">Gnome Sort</option>
+                <option value="radix">Radix Sort (LSD)</option>
+                <option value="comb">Comb Sort</option>
+                <option value="stooge">Stooge Sort</option>
+                <option value="cycle">Cycle Sort</option>
+                <option value="bitonic">Bitonic Sort</option>
+                <option value="bogo">Bogo Sort</option>
+              </select>
+            </div>
+
+            <div class="control-group" id="algo-2-group" style="display: none;">
+              <label for="algorithm-2">Algorithm 2</label>
+              <select id="algorithm-2">
+                <option value="bubble">Bubble Sort</option>
+                <option value="selection">Selection Sort</option>
+                <option value="insertion">Insertion Sort</option>
+                <option value="quick" selected>Quick Sort</option>
+                <option value="merge">Merge Sort</option>
+                <option value="heap">Heap Sort</option>
+                <option value="shell">Shell Sort</option>
+                <option value="cocktail">Cocktail Sort</option>
+                <option value="gnome">Gnome Sort</option>
+                <option value="radix">Radix Sort (LSD)</option>
+                <option value="comb">Comb Sort</option>
+                <option value="stooge">Stooge Sort</option>
+                <option value="cycle">Cycle Sort</option>
+                <option value="bitonic">Bitonic Sort</option>
+                <option value="bogo">Bogo Sort</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="control-row">
+            <div class="control-group">
+              <label for="size">Array Size</label>
+              <div class="range-container">
+                <input type="range" id="size" min="10" max="500" value="100">
+                <span id="size-value">100</span>
+              </div>
+            </div>
+            
+            <div class="control-group">
+              <label for="speed">Speed</label>
+              <div class="range-container">
+                <input type="range" id="speed" min="1" max="100" value="80">
+                <span id="speed-value">80</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="control-row">
+            <div class="control-group">
+              <label for="volume">Volume</label>
+              <div class="range-container">
+                <input type="range" id="volume" min="0" max="100" value="50">
+                <span id="volume-value">50</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions-row">
+            <button id="start" class="btn-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              Start Sorting
+            </button>
+            <button id="reset" class="btn-secondary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              Reset
+            </button>
+            <button id="open-info" class="btn-icon" title="Information">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            </button>
+          </div>
+        </div>
+      </main>
+
+      <!-- Info Modal -->
+      <div id="info-modal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>About Audio Sorting</h2>
+            <button class="close-modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <p>This visualizer maps array values to frequencies. As the algorithm sorts the array, you can hear the progress as the sounds become more ordered.</p>
+            <p>Higher bars produce higher pitches, while lower bars produce lower pitches.</p>
+            <h3>VS Mode:</h3>
+            <p>Compare two algorithms side-by-side. Both start with the exact same shuffled array for a fair performance comparison. Performance timers track how long each algorithm takes to complete.</p>
+            <h3>Algorithms:</h3>
+            <ul>
+              <li><strong>Bubble Sort:</strong> Repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order.</li>
+              <li><strong>Selection Sort:</strong> Repeatedly finds the minimum element from the unsorted part and puts it at the beginning.</li>
+              <li><strong>Insertion Sort:</strong> Builds the final sorted array one item at a time.</li>
+              <li><strong>Quick Sort:</strong> A divide-and-conquer algorithm that picks an element as a pivot and partitions the given array around the picked pivot.</li>
+              <li><strong>Merge Sort:</strong> A divide-and-conquer algorithm that divides the input array into two halves, calls itself for the two halves, and then merges the two sorted halves.</li>
+              <li><strong>Heap Sort:</strong> A comparison-based sorting technique based on Binary Heap data structure. It's similar to selection sort where we first find the maximum element and place it at the end.</li>
+              <li><strong>Shell Sort:</strong> A generalization of insertion sort that allows the exchange of items that are far apart.</li>
+              <li><strong>Cocktail Sort:</strong> A variation of bubble sort that sorts in both directions each pass through the list.</li>
+              <li><strong>Gnome Sort:</strong> Similar to insertion sort except that moving an element to its proper place is accomplished by a series of swaps, as in bubble sort.</li>
+              <li><strong>Radix Sort:</strong> A non-comparative sorting algorithm that avoids comparison by creating and distributing elements into buckets according to their radix.</li>
+              <li><strong>Comb Sort:</strong> Improves on bubble sort by using a gap larger than 1.</li>
+              <li><strong>Stooge Sort:</strong> A recursive sorting algorithm with a very high time complexity.</li>
+              <li><strong>Cycle Sort:</strong> An in-place, unstable sorting algorithm, a comparison sort that is theoretically optimal in terms of the total number of writes to the original array.</li>
+              <li><strong>Bitonic Sort:</strong> A parallel algorithm for sorting. (Note: Implementation optimized for power-of-2 sizes).</li>
+              <li><strong>Bogo Sort:</strong> Also known as permutation sort, it successively generates permutations of its input until it finds one that is sorted.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
